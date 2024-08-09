@@ -7,7 +7,7 @@
    CONDITIONS OF ANY KIND, either express or implied.
 */
 
-#define CONFIG_CONSOLE_MAX_COMMAND_LINE_LENGTH 100
+#define CONFIG_CONSOLE_MAX_COMMAND_LINE_LENGTH 30
 
 #include <stdio.h>
 #include <string.h>
@@ -47,7 +47,8 @@ void console_amin(void);
 #endif
 
 static const char* TAG = "example";
-#define PROMPT_STR CONFIG_IDF_TARGET
+// #define PROMPT_STR CONFIG_IDF_TARGET
+#define PROMPT_STR "Loxos"
 
 /* Console command history can be stored to and loaded from a file.
  * The easiest way to do this is to use FATFS filesystem on top of
@@ -84,7 +85,7 @@ static void initialize_nvs(void)
 }
 
 
-void console_main(void)
+void console_main(void (*register_cmd)(void))
 {
     esp_console_repl_t *repl = NULL;
     esp_console_repl_config_t repl_config = ESP_CONSOLE_REPL_CONFIG_DEFAULT();
@@ -106,6 +107,7 @@ void console_main(void)
 #endif
 
     /* Register commands */
+    (*register_cmd)();
     esp_console_register_help_command();
     register_system_common();
 #if SOC_LIGHT_SLEEP_SUPPORTED
