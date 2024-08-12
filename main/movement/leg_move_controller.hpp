@@ -23,8 +23,9 @@ public:
         tibia_length = _tibia_length;
         
     }
+    std::string id = "";
 
-    void move(std::array<float, 3>&position);
+    void move_to_position(std::array<float, 3>&position);
 
     void move_servo_coxa(const float&angle);
 
@@ -33,12 +34,12 @@ public:
     void move_servo_tibia(const float&angle);
 
     
-    void move_servo_x(servo_driver&drive, const float&angle);
 
 private:
     ik ik_servo;
     servo_driver servo_coxa, servo_femur, servo_tibia;
     float coxa_length, femur_length, tibia_length;
+    void move_servo_x(servo_driver&drive, const float&angle);
 
 };
 

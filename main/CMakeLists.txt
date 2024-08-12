@@ -2,6 +2,8 @@ idf_component_register(
     SRCS "main.cpp"
     "data_manager.cpp"
     "data_manager.hpp"
+    "move_manager.cpp"
+    "move_manager.hpp"
     # "ik.hpp"
     # "ik.cpp"
     # "leg_move_controller.hpp"

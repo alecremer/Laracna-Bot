@@ -58,7 +58,7 @@ private:
     float getBeta(float& femur_length, float& tibia_length, float& P);
     float getTheta0(float& x, float& y);
     float getTheta1(float& x, float& z, float& alpha);
-    float getTheta2(floa&t beta);
+    float getTheta2(float& beta);
     
 public:
     float coxa_yaw_offset = 0;

@@ -9,7 +9,7 @@
 #include <functional>
 
 
-void leg_move_controller::move(std::array<float, 3>& position){
+void leg_move_controller::move_to_position(std::array<float, 3>& position){
 
     const std::array<float, 3> servo_angles = ik_servo.getAngles(position, coxa_length, femur_length);
 

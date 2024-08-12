@@ -6,6 +6,7 @@
 #ifndef SERVO_DRIVER_HPP
 #define SERVO_DRIVER_HPP
 
+#include <string>
 extern "C" {
 #include "driver/mcpwm_prelude.h"
 }
