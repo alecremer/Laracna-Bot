@@ -29,12 +29,14 @@ public:
 
     void move_servo_2(const float&angle);
 
+    
+    void move_servo_x(servo_driver&_drive, const float&_angle);
+
 private:
     ik ik_servo;
     servo_driver drive_0, drive_1, drive_2;
     float link_0_length, link_1_length;
 
-    void move_servo_x(servo_driver&_drive, const float&_angle);
 };
 
 
