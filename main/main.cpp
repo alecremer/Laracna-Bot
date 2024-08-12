@@ -1,4 +1,4 @@
-#include <console.c>
+#include <cli/console.c>
 #include "movement/servo_driver.hpp"
 #include <iostream>
 #include <string.h>
@@ -9,7 +9,6 @@ extern "C" {
     #include "argtable3/argtable3.h"
     #include "esp_log.h"
 }
-servo_driver servos[]= {servo_driver(14)};
 servo_driver d(14);
 
 

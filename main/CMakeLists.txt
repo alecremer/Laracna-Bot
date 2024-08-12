@@ -10,7 +10,7 @@ idf_component_register(
     # "leg_move_controller.cpp"
     "movement/servo_driver.hpp"
     "movement/servo_driver.cpp"
-    "console.c"
+    "cli/console.c"
     INCLUDE_DIRS "" "."
     REQUIRES console fatfs spiffs
 )
