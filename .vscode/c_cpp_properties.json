@@ -8,7 +8,7 @@
                 "${config:idf.espIdfPath}/components/**",
                 "${config:idf.espIdfPathWin}/components/**",
                 "${workspaceFolder}/**",
-                "~/esp/esp-idf/**"
+                "~/esp/**"
             ],
             "browse": {
                 "path": [

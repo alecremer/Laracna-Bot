@@ -2,6 +2,7 @@
 #include "movement/servo_driver.hpp"
 #include <iostream>
 #include <string.h>
+#include "data_manager.hpp"
 
 extern "C" {
     #include "esp_console.h"
@@ -66,6 +67,7 @@ extern "C" void app_main(void) {
         * TODO: Create servo_controller command with 4 arguments: x, y, z, leg_idx
         *
     */
+   data_manager data;
    d.Move(45);
    console_main(register_servo_move_cmd);
 

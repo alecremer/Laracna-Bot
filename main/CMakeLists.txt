@@ -1,5 +1,7 @@
 idf_component_register(
     SRCS "main.cpp"
+    "data_manager.cpp"
+    "data_manager.hpp"
     # "ik.hpp"
     # "ik.cpp"
     # "leg_move_controller.hpp"
@@ -8,8 +10,10 @@ idf_component_register(
     "movement/servo_driver.cpp"
     "console.c"
     INCLUDE_DIRS "" "."
-    REQUIRES console fatfs
+    REQUIRES console fatfs spiffs
 )
+
+spiffs_create_partition_image(storage ../partition FLASH_IN_PROJECT)
 
 # Allow all compiler warnings to be displayed
 # and restrict all builds to fail in case of warnings
