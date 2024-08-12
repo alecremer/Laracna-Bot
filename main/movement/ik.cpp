@@ -5,17 +5,19 @@
  * Spider IK
  * 
  * Spider leg:
- *       C
- *      / \
- *  L0 /   \
- *    /     \ L1
- *  AB       \
- *            \
- *             \  
- *           (x, y, z)
+ *            C
+ *     femur / \
+ *       L0 /   \
+ *         /     \ L1 tibia
+ *  A-----B       \
+ *    L2           \
+ *  coxa            \  
+ *                (x, y, z)
  * 
  * A       -> yaw axis
  * B and C -> pitch axis
+ * 
+ *  -- Without coxa
  * 
  * A - theta_0 (yaw)    = atg(y/x)
  * B - theta_1 (pitch)  = gama +- alpha 
@@ -26,6 +28,14 @@
  * 
  * x, y -> footprint
  * z    -> height
+ * 
+ * With coxa
+ * 
+ * pitch_coxa -> mechanical joint variation
+ * 
+ * x_real = x + L2*cos(yaw_coxa)*cos(pitch_of_coxa)
+ * y_real = y + L2*sin(yaw_coxa)*cos(pitch_coxa)
+ * z_real = z + L2*cos(yaw_coxa)*sin(pitch_coxa)
  * 
 *******************************************************/
 
@@ -39,18 +49,18 @@ float ik::getP(float x, float z){
     float p = sqrt(x*x + z*z);
     return p;
 }
-float ik::getAlpha(float L0, float L1, float P){
+float ik::getAlpha(float femur_length, float tibia_length, float P){
 
-    float a = P*P + L0*L0 - L1*L1;
-    float b = 2*P*L0;
+    float a = P*P + femur_length*femur_length - tibia_length*tibia_length;
+    float b = 2*P*femur_length;
     float alpha = acos(a/b);
     return alpha;
     
 }
-float ik::getBeta(float L0, float L1, float P){
+float ik::getBeta(float femur_length, float tibia_length, float P){
 
-    float a = L0*L0 + L1*L1 - P*P;
-    float b = 2*L0*L1;
+    float a = femur_length*femur_length + tibia_length*tibia_length - P*P;
+    float b = 2*femur_length*tibia_length;
     float beta = acos(a/b);
     return beta;
     
@@ -72,24 +82,27 @@ float ik::getTheta2(float beta){
     return theta2;
 
 }
-std::array<float, 3> ik::getAngles(const std::array<float, 3>& position, const float& L0, const float& L1){
+std::array<float, 3> ik::getAngles(const std::array<float, 3>& position, const float& coxa_length, const float& femur_length, const float& tibia_length){
 
     // split position vector
-    const float x = position[0];
-    const float y = position[1];
-    const float z = position[2];
+    const float x_original = position[0];
+    const float y_original = position[1];
 
+    // calculate first angle and transform to plain ref
+    const float theta0 = getTheta0(x_original, y_original);
+    const float x = x_original - coxa_length*cos(theta0)*cos(coxa_yaw_offset);
+    const float z = position[2] - coxa_length*sin(coxa_yaw_offset);
+    
     // ----------------------------------------
     // calculate angles
     // ----------------------------------------
 
-    const float theta0 = getTheta0(x, y);
     
     const float P = getP(x, z);
-    const float alpha = getAlpha(L0, L1, P);
+    const float alpha = getAlpha(femur_length, tibia_length, P);
     const float theta1 = getTheta1(x, z, alpha);
 
-    const float beta = getBeta(L0, L1, P);
+    const float beta = getBeta(femur_length, tibia_length, P);
     const float theta2 = getTheta2(beta);
 
     // ----------------------------------------

@@ -52,15 +52,17 @@ using namespace std;
 class ik
 {
 private:
-    float getP(float x, float z);
-    float getAlpha(float L0, float L1, float P);
-    float getBeta(float L0, float L1, float P);
-    float getTheta0(float x, float y);
-    float getTheta1(float x, float z, float alpha);
-    float getTheta2(float beta);
+ 
+    float getP(float& x, float& z);
+    float getAlpha(float& femur_length, float& tibia_length, float& P);
+    float getBeta(float& femur_length, float& tibia_length, float& P);
+    float getTheta0(float& x, float& y);
+    float getTheta1(float& x, float& z, float& alpha);
+    float getTheta2(floa&t beta);
     
 public:
-    std::array<float, 3> getAngles(const std::array<float, 3>& position, const float& L0, const float& L1);
+    float coxa_yaw_offset = 0;
+    std::array<float, 3> getAngles(const std::array<float, 3>& position, const float& coxa_length, const float& femur_length, const float& tibia_length);
 
 };
 
