@@ -48,7 +48,7 @@ void console_amin(void);
 
 static const char* TAG = "example";
 // #define PROMPT_STR CONFIG_IDF_TARGET
-#define PROMPT_STR "Loxos"
+#define PROMPT_STR "Laracna"
 
 /* Console command history can be stored to and loaded from a file.
  * The easiest way to do this is to use FATFS filesystem on top of

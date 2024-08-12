@@ -11,17 +11,17 @@
 
 void leg_move_controller::move(std::array<float, 3>& position){
 
-    const std::array<float, 3> servo_angles = ik_servo.getAngles(position, link_0_length, link_1_length);
+    const std::array<float, 3> servo_angles = ik_servo.getAngles(position, coxa_length, femur_length);
 
-    drive_0.Move(servo_angles.at(0));
-    drive_1.Move(servo_angles.at(1));
-    drive_2.Move(servo_angles.at(2));
+    servo_coxa.Move(servo_angles.at(0));
+    servo_femur.Move(servo_angles.at(1));
+    servo_tibia.Move(servo_angles.at(2));
 
 }
 
-void leg_move_controller::move_servo_0(const float &angle){ move_servo_x(drive_0, angle);}
-void leg_move_controller::move_servo_1(const float &angle){ move_servo_x(drive_1, angle);}
-void leg_move_controller::move_servo_2(const float &angle){ move_servo_x(drive_2, angle);}
+void leg_move_controller::move_servo_coxa(const float &angle){ move_servo_x(servo_coxa, angle);}
+void leg_move_controller::move_servo_femur(const float &angle){ move_servo_x(servo_femur, angle);}
+void leg_move_controller::move_servo_tibia(const float &angle){ move_servo_x(servo_tibia, angle);}
 
 void leg_move_controller::move_servo_x(servo_driver &_drive, const float &_angle){
 

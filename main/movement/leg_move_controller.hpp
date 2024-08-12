@@ -14,28 +14,31 @@
 
 class leg_move_controller {
 public:
-    leg_move_controller(const int32_t gpio_servo_0, const int32_t gpio_servo_1, const int32_t gpio_servo_2,
-                        const float&_link_0_length, const float&_link_1_length)
-        : drive_0(gpio_servo_0), drive_1(gpio_servo_1), drive_2(gpio_servo_2) {
-        link_0_length = _link_0_length;
-        link_1_length = _link_1_length;
+    leg_move_controller(const int32_t gpio_servo_coxa, const int32_t gpio_servo_femur, const int32_t gpio_servo_tibia,
+                        const float&_coxa_length, const float&_femur_length, const float&_tibia_length)
+        : servo_coxa(gpio_servo_coxa), servo_femur(gpio_servo_femur), servo_tibia(gpio_servo_tibia) {
+
+        coxa_length = _coxa_length;
+        femur_length = _femur_length;
+        tibia_length = _tibia_length;
+        
     }
 
     void move(std::array<float, 3>&position);
 
-    void move_servo_0(const float&angle);
+    void move_servo_coxa(const float&angle);
 
-    void move_servo_1(const float&angle);
+    void move_servo_femur(const float&angle);
 
-    void move_servo_2(const float&angle);
+    void move_servo_tibia(const float&angle);
 
     
-    void move_servo_x(servo_driver&_drive, const float&_angle);
+    void move_servo_x(servo_driver&drive, const float&angle);
 
 private:
     ik ik_servo;
-    servo_driver drive_0, drive_1, drive_2;
-    float link_0_length, link_1_length;
+    servo_driver servo_coxa, servo_femur, servo_tibia;
+    float coxa_length, femur_length, tibia_length;
 
 };
 

@@ -7,17 +7,19 @@
  * Spider IK
  * 
  * Spider leg:
- *       C
- *      / \
- *  L0 /   \
- *    /     \ L1
- *  AB       \
- *            \
- *             \  
- *           (x, y, z)
+ *            C
+ *     femur / \
+ *       L0 /   \
+ *         /     \ L1 tibia
+ *  A-----B       \
+ *    L2           \
+ *  coxa            \  
+ *                (x, y, z)
  * 
  * A       -> yaw axis
  * B and C -> pitch axis
+ * 
+ *  -- Without coxa
  * 
  * A - theta_0 (yaw)    = atg(y/x)
  * B - theta_1 (pitch)  = gama +- alpha 
@@ -28,6 +30,14 @@
  * 
  * x, y -> footprint
  * z    -> height
+ * 
+ * With coxa
+ * 
+ * pitch_coxa -> mechanical joint variation
+ * 
+ * x_real = x + L2*cos(yaw_coxa)*cos(pitch_of_coxa)
+ * y_real = y + L2*sin(yaw_coxa)*cos(pitch_coxa)
+ * z_real = z + L2*cos(yaw_coxa)*sin(pitch_coxa)
  * 
 *******************************************************/
 
