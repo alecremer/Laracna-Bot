@@ -4,14 +4,19 @@ idf_component_register(
     "data_manager.hpp"
     "move_manager.cpp"
     "move_manager.hpp"
+    "laracna.hpp"
+    "laracna.cpp"
+    # "laracna.cpp"
     # "ik.hpp"
     # "ik.cpp"
     # "leg_move_controller.hpp"
     # "leg_move_controller.cpp"
     "movement/servo_driver.hpp"
     "movement/servo_driver.cpp"
-    "cli/console.c"
-    INCLUDE_DIRS "" "."
+    "console/console.c"
+    "cmd_interface.hpp"
+    "cmd_interface.cpp"
+    INCLUDE_DIRS "" "." 
     REQUIRES console fatfs spiffs
 )
 

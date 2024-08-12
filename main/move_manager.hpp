@@ -13,8 +13,9 @@
 
 using namespace std;
 
-struct leg_config
+class leg_config
 {
+public:
     int coxa_servo_gpio;
     int femur_servo_gpio;
     int tibia_servo_gpio;

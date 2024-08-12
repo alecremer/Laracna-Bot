@@ -41,7 +41,7 @@
 extern "C" {
 #endif
 
-void console_amin(void);
+// void console_main(void);
 #ifdef __cplusplus
 }
 #endif
@@ -85,8 +85,14 @@ static void initialize_nvs(void)
 }
 
 
-void console_main(void (*register_cmd)(void))
+// void console_main(void (*register_cmd)(void))
+// void console_main( void func* )
+
+
+void console_main(void)
 {
+// esp_console_repl_t *repl = NULL;
+// esp_console_repl_config_t repl_config;
     esp_console_repl_t *repl = NULL;
     esp_console_repl_config_t repl_config = ESP_CONSOLE_REPL_CONFIG_DEFAULT();
     /* Prompt to be printed before each line.
@@ -105,9 +111,12 @@ void console_main(void (*register_cmd)(void))
 #else
     ESP_LOGI(TAG, "Command history disabled");
 #endif
+// }
 
+// void console_start(void)
+// {
     /* Register commands */
-    (*register_cmd)();
+    // (*register_cmd)();
     esp_console_register_help_command();
     register_system_common();
 #if SOC_LIGHT_SLEEP_SUPPORTED

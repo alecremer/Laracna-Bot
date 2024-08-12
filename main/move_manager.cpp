@@ -12,6 +12,7 @@ extern "C"{
     #include "esp_log.h"
 }
 
+
 move_manager::move_manager(const vector<leg_config>& leg_configs){
 
     // populate legs

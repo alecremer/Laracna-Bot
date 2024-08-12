@@ -1,8 +1,9 @@
-#include <cli/console.c>
+#include <console/console.c>
 #include "movement/servo_driver.hpp"
 #include <iostream>
 #include <string.h>
 #include "data_manager.hpp"
+#include "laracna.hpp"
 
 extern "C" {
     #include "esp_console.h"
@@ -56,6 +57,19 @@ void register_servo_move_cmd(void){
 // https://docs.espressif.com/projects/esp-idf/en/v5.1.2/esp32/api-guides/startup.html
 extern "C" void app_main(void) {
 
+    leg_config config;
+    config.coxa_length = 1;
+    config.femur_length = 1;
+    config.tibia_length = 1;
+    config.coxa_servo_gpio = 14;
+    config.femur_servo_gpio = 15;
+    config.tibia_servo_gpio = 16;
+    config.id = "test";
+
+    vector<leg_config> l;
+    l.push_back(config);
+    laracna laracna_instance(l);
+    laracna_instance.initialize();
 
     
     // std::cout << b.a;
@@ -68,6 +82,6 @@ extern "C" void app_main(void) {
     */
    data_manager data;
    d.Move(45);
-   console_main(register_servo_move_cmd);
+//    console_main(register_servo_move_cmd);
 
 }
