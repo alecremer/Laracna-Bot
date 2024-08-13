@@ -11,6 +11,7 @@
 
 #include "ik.hpp"
 #include "servo_driver.hpp"
+#include "servo_driver2.hpp"
 
 class leg_move_controller {
 public:
@@ -55,6 +56,7 @@ public:
 private:
     ik ik_servo;
     servo_driver servo_coxa, servo_femur, servo_tibia;
+    servo_driver2 servo_coxa2, servo_femur2, servo_tibia2;
     float coxa_length, femur_length, tibia_length;
     void move_servo_x(servo_driver&drive, const float&angle);
 

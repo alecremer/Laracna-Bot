@@ -13,6 +13,7 @@ private:
 public:
     laracna(const vector<leg_config>& leg_config):move_man(leg_config){};
     void initialize(void);
+    void build_legs(void);
     move_manager move_man;
     cmd_interface cmd;
 };

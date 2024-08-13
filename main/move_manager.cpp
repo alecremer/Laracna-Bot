@@ -47,3 +47,9 @@ move_manager::move_manager(const vector<leg_config>& leg_configs){
     }
 
 }
+
+leg_move_controller move_manager::get_leg(string id){
+
+    list<leg_move_controller>::iterator result = std::find_if(legs.begin(), legs.end(), [&id](leg_move_controller l){return (l.id == id);});
+    return *result;
+}
