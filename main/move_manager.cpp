@@ -15,17 +15,35 @@ extern "C"{
 
 move_manager::move_manager(const vector<leg_config>& leg_configs){
 
-    // populate legs
-    for(int i=0; i<leg_configs.size(); i++){
-        leg_move_controller leg{
-            leg_configs[i].coxa_servo_gpio,
-            leg_configs[i].femur_servo_gpio,
-            leg_configs[i].tibia_servo_gpio,
-            leg_configs[i].coxa_length,
-            leg_configs[i].femur_length,
-            leg_configs[i].tibia_length
-        };
-        leg.id = leg_configs[i].id;     
-        legs.push_back(leg);
+    int leg_count = leg_configs.size();
+
+    if(leg_count == 0) ESP_LOGE(TAG_SERVO_REG, "leg configuration vector empty");
+
+    leg_move_controller leg_ref{
+        leg_configs[0].coxa_servo_gpio,
+        leg_configs[0].femur_servo_gpio,
+        leg_configs[0].tibia_servo_gpio,
+        leg_configs[0].coxa_length,
+        leg_configs[0].femur_length,
+        leg_configs[0].tibia_length
+    };
+
+    if(leg_count > 1){
+
+        // populate legs
+        for(int i=1; i<leg_configs.size(); i++){
+            leg_move_controller leg{
+                leg_configs[i].coxa_servo_gpio,
+                leg_configs[i].femur_servo_gpio,
+                leg_configs[i].tibia_servo_gpio,
+                leg_configs[i].coxa_length,
+                leg_configs[i].femur_length,
+                leg_configs[i].tibia_length,
+                leg_ref.timer
+            };
+            leg.id = leg_configs[i].id;     
+            legs.push_back(leg);
+        }
     }
+
 }

@@ -14,6 +14,7 @@ extern "C" {
 class servo_driver {
 public:
     servo_driver(int gpio_servo);
+    servo_driver(int gpio_servo, mcpwm_timer_handle_t timer_ext);
 
     ~servo_driver();
 
@@ -40,6 +41,9 @@ public:
     int32_t getGpio();
 
     void Move(int angle);
+    void create_timer(void);
+    void start_timer(void);
+    void create_operator_and_generator(int gpio_servo);
 
 private:
     int32_t internal_gpio_servo;

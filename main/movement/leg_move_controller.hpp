@@ -16,11 +16,26 @@ class leg_move_controller {
 public:
     leg_move_controller(const int32_t gpio_servo_coxa, const int32_t gpio_servo_femur, const int32_t gpio_servo_tibia,
                         const float&_coxa_length, const float&_femur_length, const float&_tibia_length)
-        : servo_coxa(gpio_servo_coxa), servo_femur(gpio_servo_femur), servo_tibia(gpio_servo_tibia) {
+        : servo_coxa(gpio_servo_coxa), servo_femur(gpio_servo_femur, servo_coxa.timer), servo_tibia(gpio_servo_tibia, servo_coxa.timer) {
 
         coxa_length = _coxa_length;
         femur_length = _femur_length;
         tibia_length = _tibia_length;
+
+        timer = servo_coxa.timer;
+        servo_coxa.start_timer();
+        
+    }
+    leg_move_controller(const int32_t gpio_servo_coxa, const int32_t gpio_servo_femur, const int32_t gpio_servo_tibia,
+                        const float&_coxa_length, const float&_femur_length, const float&_tibia_length, mcpwm_timer_handle_t timer_ext)
+        : servo_coxa(gpio_servo_coxa, timer_ext), servo_femur(gpio_servo_femur, timer_ext), servo_tibia(gpio_servo_tibia, timer_ext) {
+
+        coxa_length = _coxa_length;
+        femur_length = _femur_length;
+        tibia_length = _tibia_length;
+
+        timer = servo_coxa.timer;
+        servo_coxa.start_timer();
         
     }
     std::string id = "";
@@ -32,6 +47,8 @@ public:
     void move_servo_femur(const float&angle);
 
     void move_servo_tibia(const float&angle);
+
+    mcpwm_timer_handle_t timer;
 
     
 

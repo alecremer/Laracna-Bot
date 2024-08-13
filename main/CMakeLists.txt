@@ -16,8 +16,10 @@ idf_component_register(
     "console/console.c"
     "cmd_interface.hpp"
     "cmd_interface.cpp"
-    INCLUDE_DIRS "" "." 
-    REQUIRES console fatfs spiffs
+    "include/iot_servo.c"
+    "include/iot_servo.h"
+    INCLUDE_DIRS "" "." include
+    REQUIRES console fatfs spiffs driver
 )
 
 spiffs_create_partition_image(storage ../partition FLASH_IN_PROJECT)
