@@ -13,18 +13,6 @@
 
 using namespace std;
 
-class leg_config
-{
-public:
-    gpio_num_t coxa_servo_gpio;
-    gpio_num_t femur_servo_gpio;
-    gpio_num_t tibia_servo_gpio;
-    float coxa_length;
-    float femur_length;
-    float tibia_length;
-    string id;
-};
-
 
 class move_manager
 {
@@ -33,7 +21,8 @@ private:
 
 public:
 
-    move_manager(const vector<leg_config>& leg_configs);
+    move_manager(void){};
+    void set_legs(const list<leg_move_controller>& _legs){legs = _legs;};
     leg_move_controller get_leg(string id);
 
 };

@@ -4,6 +4,8 @@ extern "C" {
     #include "iot_servo.h"
 }
 #include <vector>
+#include <iostream>
+
 using namespace std;
 
 #define SERVO_MIN_PULSEWIDTH_US 500  // Minimum pulse width in microsecond
@@ -15,20 +17,25 @@ using namespace std;
 #define SERVO_TIMEBASE_RESOLUTION_HZ 1000000  // 1MHz, 1us per tick
 #define SERVO_TIMEBASE_PERIOD        20000    // 20000 ticks, 20ms
 
-servo_driver2::servo_driver2(gpio_num_t gpio_num[], ledc_channel_t ledc_ch[], ledc_timer_t ledc_timer_idx = LEDC_TIMER_0){
+
+const char* TAG = "servo_driver";
+
+servo_driver2::servo_driver2(const servo_channel_t& servo_channel, uint8_t& channel_number, ledc_timer_t ledc_timer_idx){
+
+    ESP_LOGI(TAG, "Start to set servo");
+    
+    
     servo_cfg = {
     .max_angle = SERVO_MAX_DEGREE,
     .min_width_us = SERVO_MIN_PULSEWIDTH_US,
     .max_width_us = SERVO_MAX_PULSEWIDTH_US,
     .freq = 50,
     .timer_number = ledc_timer_idx,
-    .channels = {
-        .servo_pin = *gpio_num,
-            .ch = *ledc_ch,
-        },
-        .channel_number = 8,
+    .channels = servo_channel,
+        .channel_number = channel_number,
     } ;
     iot_servo_init(LEDC_LOW_SPEED_MODE, &servo_cfg);
+    cout << "servo init ok" << endl;
 }
 
 void servo_driver2::move_servo(const int& servo_idx, const float& angle){
@@ -45,7 +52,7 @@ float servo_driver2::read_servo(const int& servo_idx){
     esp_err_t result = iot_servo_read_angle(LEDC_LOW_SPEED_MODE, servo_idx, &angle);
     if(result != ESP_OK){
         ESP_LOGE(TAG, "cant read angle (%s)", esp_err_to_name(result));
-        return;
+        return angle;
     }
 
     return angle;
