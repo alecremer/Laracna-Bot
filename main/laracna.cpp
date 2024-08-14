@@ -9,6 +9,7 @@
 void laracna::initialize(){
 
     cmd.set_move_man(move_man);
+    cmd.set_data_manager(data_man);
     cmd.start_console();
 
 }

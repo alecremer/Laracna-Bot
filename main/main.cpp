@@ -1,7 +1,7 @@
 #include <console/console.c>
 #include "movement/servo_driver.hpp"
 #include <iostream>
-#include <string.h>
+#include <string>
 #include "data_manager.hpp"
 #include "laracna.hpp"
 
@@ -155,7 +155,6 @@ extern "C" void app_main(void) {
     // sleep(1);
     // lara.move_man.get_leg("leg_l0").move_servo_coxa(0);
     lara.initialize();
-
     // std::cout << b.a;
 
     /*
@@ -164,7 +163,10 @@ extern "C" void app_main(void) {
         * TODO: Create servo_controller command with 4 arguments: x, y, z, leg_idx
         *
     */
-   data_manager data;
+//    data_manager data;
+//    data.read_config();
+//    std::string data_txt = "test write data "; 
+//    data.write_config(data_txt);
 //    d.Move(45);
 //    console_main(register_servo_move_cmd);
 

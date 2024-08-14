@@ -1,1 +1,3 @@
-coxa_length = 10
+coxa_length=10
+femur_length=10
+tibia_length=10

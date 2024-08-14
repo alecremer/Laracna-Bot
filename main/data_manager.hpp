@@ -5,10 +5,14 @@
 #ifndef DATA_MANAGER_HPP
 #define DATA_MANAGER_HPP
 
+#include <string>
+using namespace std;
+
 class data_manager
 {
     public:
-        void read_config(void);
+        string read_config(void);
+        void write_config(const string& data);
         data_manager(void);
 
     private:

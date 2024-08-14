@@ -3,6 +3,7 @@
 // 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "data_manager.hpp"
 
 extern "C"{
@@ -51,21 +52,50 @@ void data_manager::mount_partition(void){
 
 }
 
-void data_manager::read_config(void){
+string data_manager::read_config(void){
 
     ifstream file;
     string line;
+    string data = "";
     
     file.open("/storage/config.txt");
     if(file.is_open()){
         
         while ( getline(file,line) )
         {
-        cout << line << '\n';
+        // cout << line << '\n';
+            data += line + '\n';
         }
         file.close();
 
     }
     else cout << "Unable to open file";
+    return data;
+}
+
+void data_manager::write_config(const string& data){
+
+     // create new config 
+    string config_old = read_config();
+    std::istringstream f(config_old);
+    string line;
+    string config_new;
+    string paramReplace = data.substr(0, data.find("="));
+
+    while ( getline(f, line) )
+    {
+        // if this line contain parameter to change...
+        if(line.find(paramReplace) != std::string::npos)
+            line = data;
+        config_new += line  + '\n';
+    }
+
+    // replace in file
+    ofstream fileout("/storage/config.txt");
+    fileout << config_new;
+    fileout.close();
+
+
+
 
 }

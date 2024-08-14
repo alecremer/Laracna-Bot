@@ -18,7 +18,14 @@ static struct {
     struct arg_end *end;
 } servo_move_cmd_args;
 
+static struct {
+    struct arg_str *cmd;
+    struct arg_str *data;
+    struct arg_end *end;
+} data_cmd_args;
+
 move_manager m;
+data_manager data_man_;
 
 int servo_move_(void* context, int argc, char **argv){
     
@@ -43,7 +50,6 @@ int servo_move_(void* context, int argc, char **argv){
 
     }
     else{
-        std::cout << "leg_id: " << leg_ctrl.id << std::endl;
 
         if(seg == "c")
             m.get_leg(leg).move_servo_coxa(angle);
@@ -61,6 +67,37 @@ int servo_move_(void* context, int argc, char **argv){
         return 0;
 
     }
+
+}
+
+
+int data_cmd(int argc, char **argv){
+    
+    // check args
+    int nerrors = arg_parse(argc, argv, (void **) &data_cmd_args);
+    if (nerrors != 0) {
+        arg_print_errors(stderr, data_cmd_args.end, argv[0]);
+        return 1;
+    }
+
+    string cmd = data_cmd_args.cmd->sval[0];
+    string data = data_cmd_args.data->sval[0];
+
+    if(cmd == "r"){
+        ESP_LOGI("CONFIG> ", "reading config:");
+        ESP_LOGI("CONFIG> ", "\n%s", data_man_.read_config().c_str());
+    }
+    else if(cmd == "w"){
+        ESP_LOGI("CONFIG> ", "write config:");
+        data_man_.write_config(data);
+    }
+    else{
+        ESP_LOGI("CONFIG> ", "cmd '%s' not founded", cmd.c_str());
+
+    }
+
+    return 0;
+
 
 }
 
@@ -90,16 +127,41 @@ void cmd_interface::register_servo_move_cmd(void){
     
 }
 
+void cmd_interface::register_data_cmd(void){
+    
+    ESP_LOGI(__func__, "register");
+    
+    data_cmd_args.cmd = arg_str0(NULL, NULL, "<cmd>", "read- r, write- w");
+    data_cmd_args.data = arg_str0(NULL, NULL, "<data>", "passado para write");
+    data_cmd_args.end = arg_end(2);
+
+    const esp_console_cmd_t data = {
+        .command = "config",
+        .help = "gerenciamento de configurações",
+        .hint = NULL,
+        .func = &data_cmd,
+        .argtable = &data_cmd_args,
+        .func_w_context = NULL,
+        .context = NULL
+    };
+    ESP_ERROR_CHECK( esp_console_cmd_register(&data) );
+
+
+    
+}
+
 void cmd_interface::register_cmds(void)
 {
 
     register_servo_move_cmd();
+    register_data_cmd();
 
 }
 
 void cmd_interface::start_console(void)
 {
     m = move_man;
+    data_man_ = data_man;
     console_main();
     register_cmds();
 }
