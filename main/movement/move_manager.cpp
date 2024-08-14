@@ -54,6 +54,14 @@ extern "C"{
 
 leg_move_controller move_manager::get_leg(string id){
 
-    list<leg_move_controller>::iterator result = std::find_if(legs.begin(), legs.end(), [&id](leg_move_controller l){return (l.id == id);});
-    return *result;
+
+    list<leg_move_controller>::iterator result = std::find_if(legs.begin(), legs.end(), [&id](leg_move_controller l){ return (l.id == id);});
+    if(result != legs.end())
+        return *result;
+    else{
+        ESP_LOGE("GET_LEG", "leg %s not founded", id.c_str());
+        leg_move_controller err;
+        err.id = "error";
+        return err;
+    }
 }

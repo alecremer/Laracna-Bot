@@ -20,7 +20,9 @@ private:
     int servo_move_cmd(void* context, int argc, char **argv);
 
 public:
-    const move_manager *move_man;
+    cmd_interface(void){};
+    void set_move_man(const move_manager& _move_man){move_man = _move_man;};
+    move_manager move_man;
     void start_console(void);
 };
 

@@ -148,12 +148,13 @@ extern "C" void app_main(void) {
 
     laracna lara;
     lara.build_legs();
-    std::cout << "moving" << std::endl;
-    lara.move_man.get_leg("leg_l0").move_servo_coxa(100);
-    sleep(1);
-    lara.move_man.get_leg("leg_l0").move_servo_coxa(50);
-    sleep(1);
-    lara.move_man.get_leg("leg_l0").move_servo_coxa(0);
+    // std::cout << "moving" << std::endl;
+    // lara.move_man.get_leg("leg_l0").move_servo_coxa(100);
+    // sleep(1);
+    // lara.move_man.get_leg("leg_l0").move_servo_coxa(50);
+    // sleep(1);
+    // lara.move_man.get_leg("leg_l0").move_servo_coxa(0);
+    lara.initialize();
 
     // std::cout << b.a;
 

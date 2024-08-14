@@ -20,7 +20,6 @@ private:
     list<leg_move_controller> legs;
 
 public:
-
     move_manager(void){};
     void set_legs(const list<leg_move_controller>& _legs){legs = _legs;};
     leg_move_controller get_leg(string id);

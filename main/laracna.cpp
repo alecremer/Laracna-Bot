@@ -8,7 +8,7 @@
 
 void laracna::initialize(){
 
-    cmd.move_man = &this->move_man;
+    cmd.set_move_man(move_man);
     cmd.start_console();
 
 }
