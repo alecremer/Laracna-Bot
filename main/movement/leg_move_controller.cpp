@@ -7,7 +7,7 @@
 #include "servo_driver.hpp"
 
 
-leg_move_controller::leg_move_controller(const leg_config& leg_config_ext){
+leg_move_controller::leg_move_controller(const LegConfig& leg_config_ext){
     _leg_config = leg_config_ext;
     id = _leg_config.id;
 }
@@ -20,10 +20,6 @@ void leg_move_controller::move_to_position(std::array<float, 3>& position){
     move_servo_coxa(servo_angles.at(0));
     move_servo_femur(servo_angles.at(1));
     move_servo_tibia(servo_angles.at(2));
-
-    // servo_coxa.Move(servo_angles.at(0));
-    // servo_femur.Move(servo_angles.at(1));
-    // servo_tibia.Move(servo_angles.at(2));
 
 }
 

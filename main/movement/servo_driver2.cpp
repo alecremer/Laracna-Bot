@@ -22,9 +22,6 @@ const char* TAG = "servo_driver";
 
 servo_driver2::servo_driver2(const servo_channel_t& servo_channel, uint8_t& channel_number, ledc_timer_t ledc_timer_idx){
 
-    ESP_LOGI(TAG, "Start to set servo");
-    
-    
     servo_cfg = {
     .max_angle = SERVO_MAX_DEGREE,
     .min_width_us = SERVO_MIN_PULSEWIDTH_US,
@@ -35,7 +32,7 @@ servo_driver2::servo_driver2(const servo_channel_t& servo_channel, uint8_t& chan
         .channel_number = channel_number,
     } ;
     iot_servo_init(LEDC_LOW_SPEED_MODE, &servo_cfg);
-    cout << "servo init ok" << endl;
+
 }
 
 void servo_driver2::move_servo(const int& servo_idx, const float& angle){

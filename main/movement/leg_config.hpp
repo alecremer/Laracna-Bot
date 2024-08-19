@@ -3,13 +3,13 @@
 
 #include <string>
 extern "C" {
-    #include "iot_servo.h"
+    #include "iot_servo.h" // to use gpio_num_t and ledc_channel_t
 }
 
 using namespace std;
 
-
-class leg_config
+/// @brief Leg abstraction
+class LegConfig
 {
 public:
     gpio_num_t coxa_servo_gpio;
@@ -21,7 +21,7 @@ public:
     float coxa_length;
     float femur_length;
     float tibia_length;
-    string id;
+    string id; // used to access leg by user/robot
 };
 
 

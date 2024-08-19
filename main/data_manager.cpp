@@ -63,7 +63,6 @@ string data_manager::read_config(void){
         
         while ( getline(file,line) )
         {
-        // cout << line << '\n';
             data += line + '\n';
         }
         file.close();

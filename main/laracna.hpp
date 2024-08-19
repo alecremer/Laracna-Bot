@@ -5,19 +5,32 @@
 #include "cmd_interface.hpp"
 #include "data_manager.hpp"
 
-class laracna
+
+/**  @brief Robot class
+ * 
+ *    to use: build() and initialize()
+*/
+class Laracna
 {
 
 private:
+    /// @brief Creates servos drivers instances and legs interfaces 
+    void build_legs(void);
 
 
 public:
-    laracna(void){};
-    void initialize(void);
-    void build_legs(void);
+    Laracna(void){};
+
+    /// @brief instantiate and configure robot interfaces  
+    void build(void);
+    /// @brief Bringup robot modules instances 
+    void initialize(void); 
     
-    move_manager move_man;
-    cmd_interface cmd;
+    /// @brief Provides access legs and control legs gaits
+    MoveManager move_man;
+    /// @brief user UART interface
+    CLI cli;
+    /// @brief manages robot configuration and logs files 
     data_manager data_man;
 };
 

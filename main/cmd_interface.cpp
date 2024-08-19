@@ -24,7 +24,7 @@ static struct {
     struct arg_end *end;
 } data_cmd_args;
 
-move_manager m;
+MoveManager m;
 data_manager data_man_;
 
 int servo_move_(void* context, int argc, char **argv){
@@ -101,7 +101,7 @@ int data_cmd(int argc, char **argv){
 
 }
 
-void cmd_interface::register_servo_move_cmd(void){
+void CLI::register_servo_move_cmd(void){
     
     ESP_LOGI(__func__, "register");
     
@@ -127,7 +127,7 @@ void cmd_interface::register_servo_move_cmd(void){
     
 }
 
-void cmd_interface::register_data_cmd(void){
+void CLI::register_data_cmd(void){
     
     ESP_LOGI(__func__, "register");
     
@@ -150,7 +150,7 @@ void cmd_interface::register_data_cmd(void){
     
 }
 
-void cmd_interface::register_cmds(void)
+void CLI::register_cmds(void)
 {
 
     register_servo_move_cmd();
@@ -158,7 +158,7 @@ void cmd_interface::register_cmds(void)
 
 }
 
-void cmd_interface::start_console(void)
+void CLI::start_console(void)
 {
     m = move_man;
     data_man_ = data_man;

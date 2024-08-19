@@ -4,7 +4,10 @@
 extern "C" {
     #include "iot_servo.h"
 }
-
+/**
+ * @brief Provides servo interface
+ * 
+ */
 class servo_driver2
 {
 
