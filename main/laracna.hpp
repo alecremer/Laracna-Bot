@@ -4,6 +4,7 @@
 #include "movement/move_manager.hpp"
 #include "cmd_interface.hpp"
 #include "data_manager.hpp"
+#include "bt_interface.hpp"
 
 
 /**  @brief Robot class
@@ -32,6 +33,7 @@ public:
     CLI cli;
     /// @brief manages robot configuration and logs files 
     data_manager data_man;
+    BTInterface bt;
 };
 
 
