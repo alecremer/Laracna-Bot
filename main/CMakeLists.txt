@@ -1,5 +1,5 @@
 idf_component_register(
-    SRCS "main.cpp"
+    SRCS "bt_interface.cpp" "main.cpp"
     "data_manager.cpp"
     "data_manager.hpp"
     "movement/move_manager.cpp"
@@ -22,6 +22,7 @@ idf_component_register(
     "include/iot_servo.c"
     "include/iot_servo.h"
     "bt_interface.hpp"
+    "bt_interface.cpp"
     INCLUDE_DIRS "" "." include
     REQUIRES console fatfs spiffs driver
 )
