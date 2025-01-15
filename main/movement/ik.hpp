@@ -49,7 +49,7 @@
 #include <array>
 using namespace std;
 
-class ik
+class IK
 {
 private:
  

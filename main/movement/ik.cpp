@@ -43,16 +43,16 @@
 #include <vector>
 #include <array>
 #include "ik.hpp"
-#include "data_manager.hpp"
+// #include "data_manager.hpp"
 #include <iostream>
 #include <string>
 #include <sstream>
 
-float ik::getP(const float& x, const float& z){
+float IK::getP(const float& x, const float& z){
     float p = sqrt(x*x + z*z);
     return p;
 }
-float ik::getAlpha(const float& femur_length, const float& tibia_length, const float& P){
+float IK::getAlpha(const float& femur_length, const float& tibia_length, const float& P){
 
     float a = P*P + femur_length*femur_length - tibia_length*tibia_length;
     float b = 2*P*femur_length;
@@ -60,7 +60,7 @@ float ik::getAlpha(const float& femur_length, const float& tibia_length, const f
     return alpha;
     
 }
-float ik::getBeta(const float& femur_length, const float& tibia_length, const float& P){
+float IK::getBeta(const float& femur_length, const float& tibia_length, const float& P){
 
     float a = femur_length*femur_length + tibia_length*tibia_length - P*P;
     float b = 2*femur_length*tibia_length;
@@ -68,24 +68,27 @@ float ik::getBeta(const float& femur_length, const float& tibia_length, const fl
     return beta;
     
 }
-float ik::getTheta0(const float& x, const float& y){
+float IK::getTheta0(const float& x, const float& y){
     float theta0 = atan(y/x);
     return theta0;
 }
-float ik::getTheta1(const float& x, const float& z, const float& alpha){
+float IK::getTheta1(const float& x, const float& z, const float& alpha){
     
     float gama = atan(z/x);
-    float theta1 = (alpha >= gama)? gama - alpha 
+    // float hip1 = gama + alpha;
+    // float hip2 = gama + alpha;
+    // float theta1 = (alpha >= gama)? gama - alpha 
+    float theta1 = gama + alpha; 
     return theta1;
 
 }
-float ik::getTheta2(const float& beta){
+float IK::getTheta2(const float& beta){
 
     float theta2 = 2*M_PI - beta;
     return theta2;
 
 }
-std::array<float, 3> ik::getAngles(const std::array<float, 3>& position, const float& coxa_length, const float& femur_length, const float& tibia_length){
+std::array<float, 3> IK::getAngles(const std::array<float, 3>& position, const float& coxa_length, const float& femur_length, const float& tibia_length){
 
     // split position vector
     float x_original = position[0];
@@ -128,7 +131,7 @@ std::array<float, 3> ik::getAngles(const std::array<float, 3>& position, const f
     // mount angle vector
     const std::array<float, 3> angles{{theta0, theta1, theta2}};
 
-    data_manager::write_file(data.str(), "log3");
+    // data_manager::write_file(data.str(), "log3");
     return angles;
 
 }

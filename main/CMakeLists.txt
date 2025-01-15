@@ -24,7 +24,7 @@ idf_component_register(
     # "bt_interface.hpp"
     # "bt_interface.cpp"
     # "bt_test.cpp"
-    INCLUDE_DIRS "" "." include
+    INCLUDE_DIRS "" "." include test
     REQUIRES console fatfs spiffs driver bt
 )
 

@@ -59,7 +59,7 @@ public:
     
 
 private:
-    ik ik_servo;
+    IK ik_servo;
     servo_driver2 _servo_driver;
     LegConfig _leg_config;
     void move_servo_x(servo_driver&drive, const float&angle);
