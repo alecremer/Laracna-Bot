@@ -1,3 +1,6 @@
-coxa_length=10
-femur_length=10
-tibia_length=10
+coxa_length=4.7
+femur_length=3.0
+tibia_length=0.1
+coxa_angle_offset=90
+femur_angle_offset=0
+tibia_angle_offset=45

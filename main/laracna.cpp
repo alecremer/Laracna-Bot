@@ -2,15 +2,11 @@
 #include "movement/servo_driver2.hpp"
 #include "movement/leg_move_controller.hpp"
 
-#define COXA_LENGTH 1
-#define FEMUR_LENGTH 1
-#define TIBIA_LENGTH 1
-
 void Laracna::build(){
 
-    cli.set_move_man(move_man);
-    cli.set_data_manager(data_man);
     build_legs();
+    cli.set_data_manager(data_man);
+    cli.set_move_man(move_man);
 }
 
 void Laracna::initialize(){
@@ -21,12 +17,25 @@ void Laracna::initialize(){
 
 void Laracna::build_legs(){
 
+    float coxa_angle_offset = stof(data_man.read_config_field("coxa_angle_offset"));
+    float femur_angle_offset = stof(data_man.read_config_field("femur_angle_offset"));
+    float tibia_angle_offset = stof(data_man.read_config_field("tibia_angle_offset"));
+
+    float coxa_angle_length = stof(data_man.read_config_field("coxa_length"));
+    float femur_angle_length = stof(data_man.read_config_field("femur_length"));
+    float tibia_angle_length = stof(data_man.read_config_field("tibia_length"));
+
 
     // Config legs
     LegConfig leg_l0_config;
-    leg_l0_config.coxa_length = COXA_LENGTH;
-    leg_l0_config.femur_length = FEMUR_LENGTH;
-    leg_l0_config.tibia_length = TIBIA_LENGTH;
+    leg_l0_config.coxa_length = coxa_angle_length;
+    leg_l0_config.femur_length = femur_angle_length;
+    leg_l0_config.tibia_length = tibia_angle_length;
+
+    leg_l0_config.coxa_angle_offset = coxa_angle_offset;
+    leg_l0_config.femur_angle_offset = femur_angle_offset;
+    leg_l0_config.tibia_angle_offset = tibia_angle_offset;
+
     leg_l0_config.coxa_servo_gpio = GPIO_NUM_12;
     leg_l0_config.femur_servo_gpio = GPIO_NUM_14;
     leg_l0_config.tibia_servo_gpio = GPIO_NUM_27;
@@ -36,9 +45,14 @@ void Laracna::build_legs(){
     leg_l0_config.id = "leg_l0";
 
     LegConfig leg_l1_config;
-    leg_l1_config.coxa_length = COXA_LENGTH;
-    leg_l1_config.femur_length = FEMUR_LENGTH;
-    leg_l1_config.tibia_length = TIBIA_LENGTH;
+    leg_l1_config.coxa_length = coxa_angle_length;
+    leg_l1_config.femur_length = femur_angle_length;
+    leg_l1_config.tibia_length = tibia_angle_length;
+
+    leg_l1_config.coxa_angle_offset = coxa_angle_offset;
+    leg_l1_config.femur_angle_offset = femur_angle_offset;
+    leg_l1_config.tibia_angle_offset = tibia_angle_offset;
+
     leg_l1_config.coxa_servo_gpio = GPIO_NUM_26;
     leg_l1_config.femur_servo_gpio = GPIO_NUM_25;
     leg_l1_config.tibia_servo_gpio = GPIO_NUM_33;
@@ -90,8 +104,11 @@ void Laracna::build_legs(){
     legs.push_back(leg_l0);
     legs.push_back(leg_l1);
 
+
     // set move manager
     move_man.set_legs(legs);
+
+
     
   
     

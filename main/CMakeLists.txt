@@ -1,14 +1,14 @@
 idf_component_register(
-    SRCS "bt_interface.cpp" "main.cpp"
+    SRCS 
+    "main.cpp"
     "data_manager.cpp"
     "data_manager.hpp"
     "movement/move_manager.cpp"
     "movement/move_manager.hpp"
     "laracna.hpp"
     "laracna.cpp"
-    # "laracna.cpp"
-    # "ik.hpp"
-    # "ik.cpp"
+    "movement/ik.hpp"
+    "movement/ik.cpp"
     "movement/leg_move_controller.hpp"
     "movement/leg_move_controller.cpp"
     "movement/servo_driver.hpp"
@@ -21,10 +21,11 @@ idf_component_register(
     "cmd_interface.cpp"
     "include/iot_servo.c"
     "include/iot_servo.h"
-    "bt_interface.hpp"
-    "bt_interface.cpp"
+    # "bt_interface.hpp"
+    # "bt_interface.cpp"
+    # "bt_test.cpp"
     INCLUDE_DIRS "" "." include
-    REQUIRES console fatfs spiffs driver
+    REQUIRES console fatfs spiffs driver bt
 )
 
 spiffs_create_partition_image(storage ../partition FLASH_IN_PROJECT)

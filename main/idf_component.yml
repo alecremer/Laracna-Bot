@@ -2,8 +2,11 @@
 dependencies:
   espressif/esp-idf-cxx: "^1.0.2-beta"
   ## Required IDF version
-  idf:
-    version: ">=4.1.0"
+  # idf_version: ">=4.1.0"
+  # idf_version: ">=5.1.0,<5.2.0"
+  # idf:
+  #   version: ">=5.1.0,<5.2.0"
+    # version: ">=4.1.0"
   # # Put list of dependencies here
   # # For components maintained by Espressif:
   # component: "~1.0.0"

@@ -43,13 +43,16 @@
 #include <vector>
 #include <array>
 #include "ik.hpp"
+#include "data_manager.hpp"
+#include <iostream>
+#include <string>
+#include <sstream>
 
-
-float ik::getP(float x, float z){
+float ik::getP(const float& x, const float& z){
     float p = sqrt(x*x + z*z);
     return p;
 }
-float ik::getAlpha(float femur_length, float tibia_length, float P){
+float ik::getAlpha(const float& femur_length, const float& tibia_length, const float& P){
 
     float a = P*P + femur_length*femur_length - tibia_length*tibia_length;
     float b = 2*P*femur_length;
@@ -57,7 +60,7 @@ float ik::getAlpha(float femur_length, float tibia_length, float P){
     return alpha;
     
 }
-float ik::getBeta(float femur_length, float tibia_length, float P){
+float ik::getBeta(const float& femur_length, const float& tibia_length, const float& P){
 
     float a = femur_length*femur_length + tibia_length*tibia_length - P*P;
     float b = 2*femur_length*tibia_length;
@@ -65,18 +68,18 @@ float ik::getBeta(float femur_length, float tibia_length, float P){
     return beta;
     
 }
-float ik::getTheta0(float x, float y){
+float ik::getTheta0(const float& x, const float& y){
     float theta0 = atan(y/x);
     return theta0;
 }
-float ik::getTheta1(float x, float z, float alpha){
+float ik::getTheta1(const float& x, const float& z, const float& alpha){
     
     float gama = atan(z/x);
-    float theta1 = gama + alpha;
+    float theta1 = (alpha >= gama)? gama - alpha 
     return theta1;
 
 }
-float ik::getTheta2(float beta){
+float ik::getTheta2(const float& beta){
 
     float theta2 = 2*M_PI - beta;
     return theta2;
@@ -85,31 +88,47 @@ float ik::getTheta2(float beta){
 std::array<float, 3> ik::getAngles(const std::array<float, 3>& position, const float& coxa_length, const float& femur_length, const float& tibia_length){
 
     // split position vector
-    const float x_original = position[0];
-    const float y_original = position[1];
+    float x_original = position[0];
+    float y_original = position[1];
+    
 
     // calculate first angle and transform to plain ref
-    const float theta0 = getTheta0(x_original, y_original);
-    const float x = x_original - coxa_length*cos(theta0)*cos(coxa_yaw_offset);
-    const float z = position[2] - coxa_length*sin(coxa_yaw_offset);
+    float theta0 = getTheta0(x_original, y_original);
+
+    float x = x_original - coxa_length*cos(theta0)*cos(coxa_yaw_offset);
+    float z = position[2] - coxa_length*sin(coxa_yaw_offset);
+    
+    std::ostringstream data;
+    data << "original x, y: " << x_original << ", " << y_original << "\n";
+    data << "x, z: " << x << ", " << z << "\n";
     
     // ----------------------------------------
     // calculate angles
     // ----------------------------------------
 
     
-    const float P = getP(x, z);
-    const float alpha = getAlpha(femur_length, tibia_length, P);
-    const float theta1 = getTheta1(x, z, alpha);
+    float P = getP(x, z);
+    float alpha = getAlpha(femur_length, tibia_length, P);
+    float theta1 = getTheta1(x, z, alpha);
 
     const float beta = getBeta(femur_length, tibia_length, P);
     const float theta2 = getTheta2(beta);
+
+    data << "P: " << P << "\n";
+    data << "alpha: " << alpha << "\n";
+    data << "length c, f, t: " << coxa_length << ", " << femur_length << ", " << tibia_length << "\n";
+    data << "theta1: " << theta1 << "\n";
+    data << "beta: " << beta << "\n";
+    data << "theta2: " << theta2 << "\n";
+    data << "--------------------------------------" << "\n";
+
 
     // ----------------------------------------
 
     // mount angle vector
     const std::array<float, 3> angles{{theta0, theta1, theta2}};
 
+    data_manager::write_file(data.str(), "log3");
     return angles;
 
 }

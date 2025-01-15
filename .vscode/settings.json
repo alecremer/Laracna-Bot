@@ -96,7 +96,8 @@
         "csignal": "cpp",
         "codecvt": "cpp",
         "filesystem": "cpp",
-        "netfwd": "cpp"
+        "netfwd": "cpp",
+        "text_encoding": "cpp"
     },
     "idf.port": "/dev/ttyUSB0",
     "idf.flashType": "UART"

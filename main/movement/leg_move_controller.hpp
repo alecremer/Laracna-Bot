@@ -48,6 +48,8 @@ public:
      */
     void move_servo_tibia(const float&angle);
 
+    int read_servo_angle(const string& servo_id);
+
     /**
      * 
      */
@@ -59,7 +61,6 @@ public:
 private:
     ik ik_servo;
     servo_driver2 _servo_driver;
-    float coxa_length, femur_length, tibia_length;
     LegConfig _leg_config;
     void move_servo_x(servo_driver&drive, const float&angle);
 

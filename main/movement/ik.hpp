@@ -53,12 +53,12 @@ class ik
 {
 private:
  
-    float getP(float& x, float& z);
-    float getAlpha(float& femur_length, float& tibia_length, float& P);
-    float getBeta(float& femur_length, float& tibia_length, float& P);
-    float getTheta0(float& x, float& y);
-    float getTheta1(float& x, float& z, float& alpha);
-    float getTheta2(float& beta);
+    float getP(const float& x, const float& z);
+    float getAlpha(const float& femur_length, const float& tibia_length, const float& P);
+    float getBeta(const float& femur_length, const float& tibia_length, const float& P);
+    float getTheta0(const float& x, const float& y);
+    float getTheta1(const float& x, const float& z, const float& alpha);
+    float getTheta2(const float& beta);
     
 public:
     float coxa_yaw_offset = 0;

@@ -17,6 +17,7 @@ private:
 
     void register_servo_move_cmd(void);
     void register_data_cmd(void);
+    void register_leg_cmd(void);
     void register_cmds(void);
     int servo_move_cmd(void* context, int argc, char **argv);
 

@@ -21,6 +21,9 @@ public:
     float coxa_length;
     float femur_length;
     float tibia_length;
+    float coxa_angle_offset;
+    float femur_angle_offset;
+    float tibia_angle_offset;
     string id; // used to access leg by user/robot
 };
 
