@@ -112,7 +112,8 @@ std::array<float, 3> IK::getAngles(const std::array<float, 3>& position, const f
     // calculate first angle and transform to plain ref
     float theta0 = getTheta0(x_original, y_original);
 
-    float x = x_original - coxa_length*cos(theta0)*cos(coxa_yaw_offset);
+    // float x = x_original - coxa_length*cos(theta0)*cos(coxa_yaw_offset);
+    float x = sqrt(x_original*x_original + y_original*y_original) - coxa_length;
     float z = position[2] - coxa_length*sin(coxa_yaw_offset);
 
     

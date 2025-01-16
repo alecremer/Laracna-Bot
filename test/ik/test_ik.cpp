@@ -122,16 +122,16 @@ void test_get_alpa(const float& coxa_l, const float& femur_l, const float& P, fl
 
 int main(void) {
     UNITY_BEGIN();
-    // RUN_TEST([]{get_angles_from_IK(10, 10, 20, {0, 45, 45});});
-    // RUN_TEST([]{get_angles_from_IK(10, 10, 20, {0, 45, -45});});
-    // RUN_TEST([]{get_angles_from_IK(10, 10, 20, {0, 30, 10});});
-    // RUN_TEST([]{get_angles_from_IK(10, 10, 20, {0, 30, -10});});
-    // RUN_TEST([]{get_angles_from_IK(10, 10, 20, {0, 10, 30});});
-    // RUN_TEST([]{get_angles_from_IK(10, 10, 20, {0, 10, -30});});
-    // RUN_TEST([]{get_angles_from_IK(10, 10, 10, {45, 45, 45}, true);});
-    // RUN_TEST([]{test_ik(10, 10, 10, {17.0711f, 17.0711f, 0});});
-    // RUN_TEST([]{test_get_P(10, 5, 11.18033f);});
-    // RUN_TEST([]{test_get_P(13, -4, 13.601470f);});
-    // RUN_TEST([]{test_get_alpa(10, 10, 10, );});
+    RUN_TEST([]{get_angles_from_IK(10, 10, 20, {0, 45, 45});});
+    RUN_TEST([]{get_angles_from_IK(10, 10, 20, {0, 45, -45});});
+    RUN_TEST([]{get_angles_from_IK(10, 10, 20, {0, 30, 10});});
+    RUN_TEST([]{get_angles_from_IK(10, 10, 20, {0, 30, -10});});
+    RUN_TEST([]{get_angles_from_IK(10, 10, 20, {0, 10, 30});});
+    RUN_TEST([]{get_angles_from_IK(10, 10, 20, {0, 10, -30});});
+    RUN_TEST([]{get_angles_from_IK(10, 10, 10, {45, 45, 45});});
+    RUN_TEST([]{get_angles_from_IK(10, 10, 10, {32, 17, 45});});
+    RUN_TEST([]{get_angles_from_IK(10, 10, 10, {-32, 17, 45});});
+    RUN_TEST([]{get_angles_from_IK(10, 10, 10, {-32, -17, 45});});
+    RUN_TEST([]{get_angles_from_IK(10, 10, 10, {-32, -17, -45});});
     return UNITY_END();
 }
