@@ -6,16 +6,41 @@
 /*******************************************************
  * Spider IK
  * 
- * Spider leg:
- *            C
- *     femur / \
- *       L0 /   \
- *         /     \ L1 tibia
- *  A-----B       \
- *    L2           \
- *  coxa            \  
- *                (x, y, z)
+ *  Spider leg:
+ *  
+ *  z
+ *             C
+ *      femur / \
+ *        L0 /   \
+ *          /     \ L1 tibia
+ *   A-----B       \
+ *     L2           \
+ *   coxa            \  
+ *                 (x, y, z)
+ *  
+ *  femur-tibia plane
+ *  
+ *  ^z
+ *  |    C_____
+ *  |   / \ t2    t1 = theta1
+ *  |  /   \      t2 = theta2
+ *  | / t1  \ 
+ *  |B-------\---------------------> x`
+ *  |         \
+ *  |          \  
+ *  |        (x, y, z)
  * 
+ *  Top view
+ * 
+ *            ^ y 
+ *            |    /
+ *            |   /
+ *            |  /
+ *            | /
+ *            |/ theta0
+ * ------------------------> x
+ *            | Leg base
+ *
  * A       -> yaw axis
  * B and C -> pitch axis
  * 
