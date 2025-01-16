@@ -170,7 +170,7 @@ std::array<float, 3> IK::getAngles(const std::array<float, 3>& position, const f
     // mount angle vector
     const std::array<float, 3> angles{{theta0, theta1, theta2}};
 
-    // data_manager::write_file(data.str(), "log3");
+    // DataManager::write_file(data.str(), "log3");
     return angles;
 
 }

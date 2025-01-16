@@ -32,7 +32,6 @@ public:
     /// @brief user UART interface
     CLI cli;
     /// @brief manages robot configuration and logs files 
-    data_manager data_man;
     // BTInterface bt;
 };
 

@@ -34,7 +34,6 @@ static struct {
 } data_cmd_args;
 
 static MoveManager m;
-data_manager data_man_;
 static const char* TAG_MOVE_MAN = "DATA> ";
 static const char* TAG_LEG_CMD = "LEG_CMD> ";
 
@@ -165,7 +164,7 @@ int data_cmd(int argc, char **argv){
     //     ESP_LOGI("CONFIG> ", "\n%s", data_man_.read_config().c_str());
     // }
     if(cmd == "read"){
-        ESP_LOGI(TAG_MOVE_MAN, "\n%s", data_man_.read_file(data).c_str());
+        ESP_LOGI(TAG_MOVE_MAN, "\n%s", DataManager::get_instance().read_file(data).c_str());
     }
     else if(cmd == "config"){
         
@@ -175,7 +174,7 @@ int data_cmd(int argc, char **argv){
             ESP_LOGI(TAG_MOVE_MAN, "data: %s", data.c_str());
             ESP_LOGI(TAG_MOVE_MAN, "key: %s", key.c_str());
             ESP_LOGI(TAG_MOVE_MAN, "write config: %s=%s", key.c_str(), data.c_str());
-            data_man_.write_config(key, data);
+            DataManager::get_instance().write_config(key, data);
         } 
         else{
             
@@ -184,7 +183,7 @@ int data_cmd(int argc, char **argv){
     }
     else if(cmd == "list"){
         ESP_LOGI(TAG_MOVE_MAN, "list files:");
-        vector<string> files = data_man_.list_files();
+        vector<string> files = DataManager::get_instance().list_files();
         for(string s : files){
 
             ESP_LOGI("->", "%s", s.c_str());
@@ -194,7 +193,7 @@ int data_cmd(int argc, char **argv){
     }
     else if(cmd == "del"){
         
-        bool success = data_man_.delete_file(data);
+        bool success = DataManager::get_instance().delete_file(data);
 
         if(success) ESP_LOGI(TAG_MOVE_MAN, "File deleted: %s", data.c_str());
         else ESP_LOGE(TAG_MOVE_MAN, "Error deleting file: %s", data.c_str());
@@ -298,7 +297,6 @@ void CLI::register_cmds(void)
 void CLI::start_console(void)
 {
     m = move_man;
-    data_man_ = data_man;
     console_main();
     register_cmds();
 }

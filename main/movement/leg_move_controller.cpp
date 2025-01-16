@@ -3,6 +3,7 @@
 //
 
 #include "leg_move_controller.hpp"
+#include "utils/math_utils.hpp"
 #include "ik.hpp"
 #include "servo_driver.hpp"
 #include "data_manager.hpp"
@@ -28,9 +29,9 @@ void leg_move_controller::move_to_position(std::array<float, 3>& position){
 
     const std::array<float, 3> servo_angles = ik_servo.getAngles(position, _leg_config.coxa_length, _leg_config.femur_length, _leg_config.tibia_length);
 
-    int coxa_angle = servo_angles.at(0) + _leg_config.coxa_angle_offset;
-    int femur_angle = servo_angles.at(1) + _leg_config.femur_angle_offset;
-    int tibia_angle = servo_angles.at(2) + _leg_config.tibia_angle_offset;
+    int coxa_angle = servo_angles.at(0) + MathUtils::degToRad(_leg_config.coxa_angle_offset);
+    int femur_angle = servo_angles.at(1) + MathUtils::degToRad(_leg_config.femur_angle_offset);
+    int tibia_angle = servo_angles.at(2) + MathUtils::degToRad(_leg_config.tibia_angle_offset);
     
     bool coxa_angle_ok = (0 <= coxa_angle && coxa_angle <= 180);
     bool femur_angle_ok = (0 <= femur_angle && femur_angle <= 180);

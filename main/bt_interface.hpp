@@ -72,8 +72,8 @@
 //     BTInterface(void){};
 //     void start_console(void);
 //     MoveManager move_man;
-//     data_manager data_man;
-//     void set_data_manager(const data_manager& _data_man){data_man = _data_man;};
+//     DataManager data_man;
+//     void set_DataManager(const DataManager& _data_man){data_man = _data_man;};
 //     void set_move_man(const MoveManager& _move_man){move_man = _move_man;};
 // };
 

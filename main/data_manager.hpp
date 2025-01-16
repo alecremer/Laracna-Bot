@@ -10,9 +10,15 @@
 
 using namespace std;
 
-class data_manager
+class DataManager
 {
     public:
+        static DataManager& get_instance()
+        {
+            static DataManager instance;
+            return instance;
+        }
+
         string read_config(void);
         string read_file(const string& file_name);
         void write_config(const string& key, const string& data);
@@ -20,12 +26,15 @@ class data_manager
         static void write_file(const string& data, const string& file_name);
         bool delete_file(const string& file_name);
         vector<string> list_files(void);
-        data_manager(void);
 
     private:
+        DataManager(void);
         void mount_partition(void);
 
-};
+        // Delete copy constructor and assignment operator to ensure singleton
+        DataManager(const DataManager&) = delete;
+        DataManager& operator=(const DataManager&) = delete;
+};;
 
 
 

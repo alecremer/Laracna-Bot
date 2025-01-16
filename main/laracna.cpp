@@ -5,7 +5,6 @@
 void Laracna::build(){
 
     build_legs();
-    cli.set_data_manager(data_man);
     cli.set_move_man(move_man);
 }
 
@@ -17,13 +16,13 @@ void Laracna::initialize(){
 
 void Laracna::build_legs(){
 
-    float coxa_angle_offset = stof(data_man.read_config_field("coxa_angle_offset"));
-    float femur_angle_offset = stof(data_man.read_config_field("femur_angle_offset"));
-    float tibia_angle_offset = stof(data_man.read_config_field("tibia_angle_offset"));
+    float coxa_angle_offset = stof(DataManager::get_instance().read_config_field("coxa_angle_offset"));
+    float femur_angle_offset = stof(DataManager::get_instance().read_config_field("femur_angle_offset"));
+    float tibia_angle_offset = stof(DataManager::get_instance().read_config_field("tibia_angle_offset"));
 
-    float coxa_angle_length = stof(data_man.read_config_field("coxa_length"));
-    float femur_angle_length = stof(data_man.read_config_field("femur_length"));
-    float tibia_angle_length = stof(data_man.read_config_field("tibia_length"));
+    float coxa_angle_length = stof(DataManager::get_instance().read_config_field("coxa_length"));
+    float femur_angle_length = stof(DataManager::get_instance().read_config_field("femur_length"));
+    float tibia_angle_length = stof(DataManager::get_instance().read_config_field("tibia_length"));
 
 
     // Config legs

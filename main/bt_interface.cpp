@@ -25,7 +25,7 @@
 // } data_cmd_args;
 
 // MoveManager m;
-// data_manager data_man_;
+// DataManager data_man_;
 
 // int servo_move_(void* context, int argc, char **argv){
     

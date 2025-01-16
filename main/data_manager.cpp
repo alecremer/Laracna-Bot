@@ -21,11 +21,11 @@ using namespace std;
 
 static const char* TAG = "FileSystem";
 
-data_manager::data_manager(void){
+DataManager::DataManager(void){
     mount_partition();
 }
 
-void data_manager::mount_partition(void){
+void DataManager::mount_partition(void){
 
     // config
     esp_vfs_spiffs_conf_t config = {
@@ -57,7 +57,7 @@ void data_manager::mount_partition(void){
 
 }
 
-string data_manager::read_config(void){
+string DataManager::read_config(void){
 
     ifstream file;
     string line;
@@ -77,7 +77,7 @@ string data_manager::read_config(void){
     return data;
 }
 
-string data_manager::read_file(const string& file_name){
+string DataManager::read_file(const string& file_name){
 
     ifstream file;
     string line;
@@ -98,7 +98,7 @@ string data_manager::read_file(const string& file_name){
     return data;
 }
 
-void data_manager::write_config(const string& key, const string& data){
+void DataManager::write_config(const string& key, const string& data){
 
      // create new config 
     string config_old = read_config();
@@ -122,7 +122,7 @@ void data_manager::write_config(const string& key, const string& data){
 
 }
 
-string data_manager::read_config_field(const string& key){
+string DataManager::read_config_field(const string& key){
 
     string config_old = read_config();
     std::istringstream f(config_old);
@@ -145,7 +145,7 @@ string data_manager::read_config_field(const string& key){
 
 }
 
-void data_manager::write_file(const string& data, const string& file_name){
+void DataManager::write_file(const string& data, const string& file_name){
 
     ofstream fileout("/storage/" + file_name, std::ios::app);
     fileout << data + "\n";
@@ -153,7 +153,7 @@ void data_manager::write_file(const string& data, const string& file_name){
 
 }
 
-vector<string> data_manager::list_files(void) {
+vector<string> DataManager::list_files(void) {
 
     string base_path = "/storage";
     DIR* dir = opendir(base_path.c_str());  
@@ -185,7 +185,7 @@ vector<string> data_manager::list_files(void) {
     return files;
 }
 
-bool data_manager::delete_file(const string& file_name) {
+bool DataManager::delete_file(const string& file_name) {
     
     string file_path = "/storage/" + file_name;
     
