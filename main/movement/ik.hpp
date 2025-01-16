@@ -40,6 +40,11 @@
  * z_real = z + L2*cos(yaw_coxa)*sin(pitch_coxa)
  * 
 *******************************************************/
+#ifdef TESTING
+    #define ACCESS public
+#else
+    #define ACCESS private
+#endif
 
 #ifndef IK_HPP
 #define IK_HPP
@@ -51,14 +56,15 @@ using namespace std;
 
 class IK
 {
-private:
+
+ACCESS:
  
     float getP(const float& x, const float& z);
     float getAlpha(const float& femur_length, const float& tibia_length, const float& P);
     float getBeta(const float& femur_length, const float& tibia_length, const float& P);
     float getTheta0(const float& x, const float& y);
     float getTheta1(const float& x, const float& z, const float& alpha);
-    float getTheta2(const float& beta);
+    float getTheta2(const float& beta, const float& theta1);
     
 public:
     float coxa_yaw_offset = 0;

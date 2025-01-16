@@ -40,6 +40,7 @@
 *******************************************************/
 
 #include <cmath>
+#include <math.h>
 #include <vector>
 #include <array>
 #include "ik.hpp"
@@ -69,25 +70,38 @@ float IK::getBeta(const float& femur_length, const float& tibia_length, const fl
     
 }
 float IK::getTheta0(const float& x, const float& y){
-    float theta0 = atan(y/x);
+    float theta0 = atan2(y, x);
     return theta0;
 }
 float IK::getTheta1(const float& x, const float& z, const float& alpha){
     
-    float gama = atan(z/x);
+    float gama = atan2(z, x);
     // float hip1 = gama + alpha;
     // float hip2 = gama + alpha;
     // float theta1 = (alpha >= gama)? gama - alpha 
-    float theta1 = gama + alpha; 
-    return theta1;
+    // float theta1 = (gama < 0)? alpha - gama : alpha + gama; 
+    float theta1_hip0 = alpha - gama; 
+    float theta1_hip1 = alpha + gama;
+    float theta1 = theta1_hip0; 
+    
+    if(theta1_hip0 < 0) theta1 = theta1_hip1;
+    else if(theta1_hip1 < theta1_hip0) theta1 = theta1_hip1;
+
+    return theta1_hip1;
 
 }
-float IK::getTheta2(const float& beta){
+float IK::getTheta2(const float& beta, const float& theta1){
 
-    float theta2 = 2*M_PI - beta;
+    float theta2 = M_PI - beta -theta1;
     return theta2;
 
 }
+// float IK::getTheta2(const float& beta){
+
+//     float theta2 = 2*M_PI - beta;
+//     return theta2;
+
+// }
 std::array<float, 3> IK::getAngles(const std::array<float, 3>& position, const float& coxa_length, const float& femur_length, const float& tibia_length){
 
     // split position vector
@@ -100,6 +114,7 @@ std::array<float, 3> IK::getAngles(const std::array<float, 3>& position, const f
 
     float x = x_original - coxa_length*cos(theta0)*cos(coxa_yaw_offset);
     float z = position[2] - coxa_length*sin(coxa_yaw_offset);
+
     
     std::ostringstream data;
     data << "original x, y: " << x_original << ", " << y_original << "\n";
@@ -115,7 +130,7 @@ std::array<float, 3> IK::getAngles(const std::array<float, 3>& position, const f
     float theta1 = getTheta1(x, z, alpha);
 
     const float beta = getBeta(femur_length, tibia_length, P);
-    const float theta2 = getTheta2(beta);
+    const float theta2 = getTheta2(beta, theta1);
 
     data << "P: " << P << "\n";
     data << "alpha: " << alpha << "\n";

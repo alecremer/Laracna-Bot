@@ -1,33 +1,41 @@
 dependencies:
   cmd_nvs:
-    component_hash: null
+    dependencies: []
     source:
       path: /home/ale/esp/esp-idf/examples/system/console/advanced/components/cmd_nvs
       type: local
     version: '*'
   cmd_system:
-    component_hash: null
+    dependencies: []
     source:
       path: /home/ale/esp/esp-idf/examples/system/console/advanced/components/cmd_system
       type: local
     version: '*'
   cmd_wifi:
-    component_hash: null
+    dependencies: []
     source:
       path: /home/ale/esp/esp-idf/examples/system/console/advanced/components/cmd_wifi
       type: local
     version: '*'
   espressif/esp-idf-cxx:
     component_hash: 2fa63e4e725f0c2d3dd6d99da8a91d404b4b49667088b1be0f336eb9c13ff17f
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
     source:
-      service_url: https://api.components.espressif.com/
+      registry_url: https://components.espressif.com/
       type: service
     version: 1.0.2-beta
   idf:
-    component_hash: null
     source:
       type: idf
     version: 5.4.0
-manifest_hash: 17f372c8b23e7c9f3fb00d00ebd6e61823781e287a0d6b34a5799336c6acd0f5
+direct_dependencies:
+- cmd_nvs
+- cmd_system
+- cmd_wifi
+- espressif/esp-idf-cxx
+manifest_hash: 83ce3274af041c65ad19cd2e05ce6cb5c300b146879185db73c0947073777e11
 target: esp32
-version: 1.0.0
+version: 2.0.0
