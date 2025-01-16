@@ -80,7 +80,10 @@ float IK::getAlpha(const float& femur_length, const float& tibia_length, const f
 
     float a = P*P + femur_length*femur_length - tibia_length*tibia_length;
     float b = 2*P*femur_length;
-    float alpha = acos(a/b);
+    float ratio = a / b;
+    if (ratio < -1.0) ratio = -1.0;
+    if (ratio > 1.0) ratio = 1.0;
+    float alpha = acos(ratio);
     return alpha;
     
 }
@@ -88,7 +91,10 @@ float IK::getBeta(const float& femur_length, const float& tibia_length, const fl
 
     float a = femur_length*femur_length + tibia_length*tibia_length - P*P;
     float b = 2*femur_length*tibia_length;
-    float beta = acos(a/b);
+    float ratio = a / b;
+    if (ratio < -1.0) ratio = -1.0;
+    if (ratio > 1.0) ratio = 1.0;
+    float beta = acos(ratio);
     return beta;
     
 }
@@ -115,7 +121,8 @@ float IK::getTheta1(const float& x, const float& z, const float& alpha){
 }
 float IK::getTheta2(const float& beta, const float& theta1){
 
-    float theta2 = M_PI - beta -theta1;
+    // float theta2 = M_PI - beta -theta1;
+    float theta2 = M_PI - beta;
     return theta2;
 
 }

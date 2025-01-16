@@ -1,5 +1,6 @@
 #include "cmd_interface.hpp"
 #include "laracna.hpp"
+#include "utils/math_utils.hpp"
 
 extern "C" {
     #include "esp_console.h"
@@ -61,9 +62,9 @@ int servo_move_(void* context, int argc, char **argv){
         leg_move_controller leg_ctrl = m.get_leg(leg);
 
         ESP_LOGE(__func__, "leg %s angles:", leg_ctrl.id.c_str());
-        ESP_LOGE(__func__, "coxa: %i", leg_ctrl.read_servo_angle("c"));
-        ESP_LOGE(__func__, "femur: %i", leg_ctrl.read_servo_angle("f"));
-        ESP_LOGE(__func__, "tibia: %i", leg_ctrl.read_servo_angle("t"));
+        ESP_LOGE(__func__, "coxa: %f", leg_ctrl.read_servo_angle("c"));
+        ESP_LOGE(__func__, "femur: %f", leg_ctrl.read_servo_angle("f"));
+        ESP_LOGE(__func__, "tibia: %f", leg_ctrl.read_servo_angle("t"));
 
     }
 
@@ -130,6 +131,14 @@ int leg_cmd_(void* context, int argc, char **argv){
             return 1;
         }
         ESP_LOGE(TAG_LEG_CMD, "Invalid number of elements");
+        return 0;
+
+    }
+    if(cmd == "read"){
+
+        array<float, 3> pos = MathUtils::rad2deg_array(m.get_leg(leg_id).get_pos_from_angles());
+
+        ESP_LOGI(TAG_LEG_CMD, "%s pos: %f, %f, %f", leg_id.c_str(), pos[0], pos[1], pos[2]);
         return 0;
 
     }

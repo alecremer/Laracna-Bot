@@ -133,5 +133,7 @@ int main(void) {
     RUN_TEST([]{get_angles_from_IK(10, 10, 10, {-32, 17, 45});});
     RUN_TEST([]{get_angles_from_IK(10, 10, 10, {-32, -17, 45});});
     RUN_TEST([]{get_angles_from_IK(10, 10, 10, {-32, -17, -45});});
+    RUN_TEST([]{get_angles_from_IK(3.7, 5.96, 0.1, {-32, -17, -45});});
+    RUN_TEST([]{get_angles_from_IK(3.7, 5.96, 0.1, {0, 0, 0});});
     return UNITY_END();
 }

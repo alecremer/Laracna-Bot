@@ -48,7 +48,9 @@ public:
      */
     void move_servo_tibia(const float&angle);
 
-    int read_servo_angle(const string& servo_id);
+    float read_servo_angle(const string& servo_id);
+    array<float, 3> get_pos_from_angles(void);
+
 
     /**
      * 

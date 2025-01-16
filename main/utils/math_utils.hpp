@@ -49,7 +49,7 @@ public:
         return sqrt(x * x + y * y);
     }
 
-    array<float, 3> deg2rad_array(const array<float, 3>& angles_d){
+    static array<float, 3> deg2rad_array(const array<float, 3>& angles_d){
 
         array<float, 3> rad;
 
@@ -63,7 +63,7 @@ public:
 
     }
 
-    array<float, 3> rad2deg_array(const array<float, 3>& angles_r){
+    static array<float, 3> rad2deg_array(const array<float, 3>& angles_r){
 
         array<float, 3> deg;
 
@@ -75,6 +75,26 @@ public:
 
         return deg;
 
+    }
+
+    static float simplify_angle_rad(const float& angles_r){
+        
+        float angle = angles_r;
+
+        while(angle > 2*M_PI){
+            angle -= 2*M_PI;
+        }
+        return angle;
+    }
+
+    static float simplify_angle_deg(const float& angles_d){
+        
+        float angle = angles_d;
+
+        while(angle > 360){
+            angle -= 360;
+        }
+        return angle;
     }
     
 
