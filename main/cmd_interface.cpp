@@ -119,10 +119,18 @@ int leg_cmd_(void* context, int argc, char **argv){
     if(cmd == "move"){
 
         if(leg_cmd_args.data->count == 3){
-            float x = stof(leg_cmd_args.data->sval[0]);
-            float y = stof(leg_cmd_args.data->sval[1]);
-            float z = stof(leg_cmd_args.data->sval[2]);
+            string x_str = (leg_cmd_args.data->sval[0]);
+            string y_str = (leg_cmd_args.data->sval[1]);
+            string z_str = (leg_cmd_args.data->sval[2]);
             
+            if(x_str.find("n") != string::npos) x_str.replace(x_str.find("n"), 1, "-");
+            if(y_str.find("n") != string::npos) y_str.replace(y_str.find("n"), 1, "-");
+            if(z_str.find("n") != string::npos)z_str.replace(z_str.find("n"), 1, "-");
+
+            float x = stof(x_str);
+            float y = stof(y_str);
+            float z = stof(z_str);
+
             ESP_LOGI(TAG_LEG_CMD, "Move to  %f, %f, %f", x, y, z);
 
             array<float, 3> position = {x, y, z};
