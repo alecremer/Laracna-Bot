@@ -1,4 +1,4 @@
-#include "laracna.hpp"
+/* #include "laracna.hpp"
 
 extern "C" void app_main(void) {
 
@@ -7,4 +7,11 @@ extern "C" void app_main(void) {
     laracna.build();
     laracna.initialize();
     
+}*/
+
+#include "bt_interface.cpp"
+
+int main(){
+    Text_Interface();
+    return 0;
 }

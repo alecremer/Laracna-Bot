@@ -21,7 +21,6 @@ idf_component_register(
     "cmd_interface.cpp"
     "include/iot_servo.c"
     "include/iot_servo.h"
-    "bt_interface.hpp"
     "bt_interface.cpp"
     INCLUDE_DIRS "" "." include
     REQUIRES console fatfs spiffs driver
