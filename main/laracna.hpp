@@ -4,7 +4,7 @@
 #include "movement/move_manager.hpp"
 #include "cmd_interface.hpp"
 #include "data_manager.hpp"
-#include "bt_interface.hpp"
+#include "bt_interface.cpp"
 
 
 /**  @brief Robot class

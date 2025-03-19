@@ -3,39 +3,42 @@
 #include <vector>
 #include <cstring> // Para usar strdup e free
 #include "esp_log.h"
+#include "bt_interface.hpp"
 
-#define TAG "RunCmd" // Define uma tag para os logs
-
-void Move(const std::string& arguments){
-    ESP_LOGE(TAG, "Running Move with the arguments: %s", arguments.c_str());
-    }
-
-void Cmd(const std::string& argumrnts){
-    ESP_LOGE(TAG,"Running Cmd with the arguments: (%s)", argumrnts.c_str());
+// =-=-=-=-=-=-=-=-=- Funções da Classe BTInterface -=-=-=-=-=-=-=-=-=
+void BTInterface::Move(const std::string& arguments) {
+    // Log de execução do comando move
+    ESP_LOGE(TAG_RUN_CMD, "Running Move with the arguments: %s", arguments.c_str());
 }
 
-void Run_cmd(const std::string& ordem){
-    
-    std::vector<std::string> palavras;  // Cria um vetor de string
-    std::stringstream ss(ordem);        // Stringstream para separar palavras
-    std::string palavra;                // String temporaria para armazenar as palavras para colocar no vetor
+void BTInterface::Cmd(const std::string& arguments) { // Corrigido typo no parâmetro
+    // Log de execução do comando cmd
+    ESP_LOGE(TAG_RUN_CMD, "Running Cmd with the arguments: (%s)", arguments.c_str());
+}
 
-    int argc = 0;   // Variável para armazenar número de de palavras da string
+void BTInterface::Run_cmd(const std::string& command) { // Renomeado 'ordem' para 'command'
+    std::vector<std::string> words;  // Vetor para armazenar palavras divididas
+    std::stringstream ss(command);   // Stream para processar a string
+    std::string word;                // Palavra temporária
 
-    while (ss >> palavra){
-        palavras.push_back(palavra);
-        argc ++;
+    argc = 0; // Reinicializa contador de argumentos
+
+    // Divide o comando em palavras
+    while (ss >> word) {
+        words.push_back(word);
+        argc++;
     }
 
-    char** argv = new char*[argc]; // Aloca memória para o array de ponteiros
+    // Aloca memória para os argumentos
+    argv = new char*[argc];
     for (int i = 0; i < argc; ++i) {
-        argv[i] = strdup(palavras[i].c_str()); // Converte std::string para char* e duplica
+        argv[i] = strdup(words[i].c_str()); // Converte e duplica strings
     }
 
-
+    // Processa os comandos
     if (argc > 0) {
         if (std::strcmp(argv[0], "move") == 0) {
-
+            // Concatena argumentos para o movimento
             std::string arguments;
             for (int i = 1; i < argc; ++i) { 
                 if (i > 1) arguments += " ";
@@ -44,6 +47,7 @@ void Run_cmd(const std::string& ordem){
             Move(arguments);
 
         } else if (std::strcmp(argv[0], "cmd") == 0) {
+            // Concatena argumentos para o comando genérico
             std::string arguments;
             for (int i = 1; i < argc; ++i) {
                 if (i > 1) arguments += " ";
@@ -57,20 +61,9 @@ void Run_cmd(const std::string& ordem){
         std::cout << "Comando vazio" << std::endl;
     }
 
-    // Liberar a memória alocada para argv
+    // Liberação de memória
     for (int i = 0; i < argc; ++i) {
-        free(argv[i]); // Libera a memória de cada string duplicada
+        free(argv[i]); // Libera strings duplicadas
     }
-    delete[] argv; // Libera o array de ponteiros
-
-}
-
-int Text_Interface() {
-    std::string ordem = "move leg0 coxa 45 -n";
-    Run_cmd(ordem);
-
-    ordem = "cmd teste de comando";
-    Run_cmd(ordem);
-
-    return 0;
+    delete[] argv; // Libera array de ponteiros
 }

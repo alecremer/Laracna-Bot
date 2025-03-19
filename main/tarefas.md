@@ -1,0 +1,3 @@
+1- Criar vetor de esp_console_cmd_t (copiar do arquivo cmd_interface) na class BTInterface que tem todos os comandos
+2- Na função run_cmd, percorrer o vetor de esp_console_cmd_t checando o campo command, que é o id do comando, se este id bater com o comando recebido como parâmetro da função, execcute o comando, lembre-se de preencher o arc e arg dentro dessa checagem
+3- Separar o arquivo BTInterface em hpp e cpp
