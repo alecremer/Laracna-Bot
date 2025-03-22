@@ -39,3 +39,27 @@ const list<leg_move_controller>& MoveManager::get_all_legs(){ return legs;}
 void MoveManager::move_leg_to_position(const string& leg_id, std::array<float, 3>& position){
     get_leg(leg_id).move_to_position(position);
 }
+
+void MoveManager::move_leg_to_position_normalized(const string& leg_id, std::array<float, 3>& position){
+    
+    leg_move_controller leg = get_leg(leg_id);
+
+    // check errors
+    for_each(begin(position), end(position), 
+        [](float pos){ 
+            if(pos < -1 || 1 < pos){
+
+                ESP_LOGE("MOVE_NORMALIZED> ", "position out of range (-1, 1): %f", pos);
+                return;
+            }
+        }
+        );
+
+    // normalized to value
+    position[0] *= leg.coxa_length + leg.femur_length + leg.tibia_length;
+    position[1] *= leg.femur_length + leg.femur_length + leg.tibia_length;
+    position[2] *= leg.tibia_length + leg.femur_length + leg.tibia_length;
+
+    leg.move_to_position(position);
+
+}

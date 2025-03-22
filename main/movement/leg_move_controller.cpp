@@ -25,8 +25,10 @@ using namespace std;
 leg_move_controller::leg_move_controller(const LegConfig& leg_config_ext){
     _leg_config = leg_config_ext;
     id = _leg_config.id;
+    coxa_length = leg_config_ext.coxa_length;
+    femur_length = leg_config_ext.femur_length;
+    tibia_length = leg_config_ext.tibia_length;
 
-    
 }
 
 

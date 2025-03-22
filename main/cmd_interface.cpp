@@ -22,6 +22,7 @@ static struct {
 
 static struct {
     struct arg_str *cmd;
+    struct arg_lit *move_normalized;
     struct arg_str *leg_id;
     struct arg_str *data;
     struct arg_end *end;
@@ -115,6 +116,7 @@ int leg_cmd_(void* context, int argc, char **argv){
 
     string cmd = leg_cmd_args.cmd->sval[0];
     string leg_id = leg_cmd_args.leg_id->sval[0];
+    bool move_normalized = (leg_cmd_args.move_normalized->count > 0);
 
     if(cmd == "move"){
 
@@ -131,10 +133,18 @@ int leg_cmd_(void* context, int argc, char **argv){
             float y = stof(y_str);
             float z = stof(z_str);
 
-            ESP_LOGI(TAG_LEG_CMD, "Move to  %f, %f, %f", x, y, z);
 
             array<float, 3> position = {x, y, z};
-            m.move_leg_to_position(leg_id, position);
+            if(move_normalized){
+                ESP_LOGI(TAG_LEG_CMD, "Move normalized to  %f, %f, %f", x, y, z);
+                m.move_leg_to_position_normalized(leg_id, position);
+            }
+            else{
+
+                ESP_LOGI(TAG_LEG_CMD, "Move to  %f, %f, %f", x, y, z);
+                m.move_leg_to_position(leg_id, position);
+
+            }
             
             return 1;
         }
@@ -281,6 +291,7 @@ void CLI::register_leg_cmd(void){
     ESP_LOGI(__func__, "register");
     
     leg_cmd_args.cmd = arg_str1(NULL, NULL, "<cmd>", "move");
+    leg_cmd_args.move_normalized = arg_lit0("-n", "normalizes", "move using range -1 to 1");
     leg_cmd_args.leg_id = arg_str1(NULL, NULL, "<leg id>", "");
     leg_cmd_args.data = arg_strn(NULL, NULL, "<data>", 0, 3, "pos");
     leg_cmd_args.end = arg_end(6);

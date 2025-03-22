@@ -26,7 +26,7 @@ public:
     const list<leg_move_controller>& get_all_legs(void);
     vector<string> get_all_leg_ids(void);
     void move_leg_to_position(const string& leg_id, std::array<float, 3>& position);
-
+    void move_leg_to_position_normalized(const string& leg_id, std::array<float, 3>& position);
 };
 
 #endif

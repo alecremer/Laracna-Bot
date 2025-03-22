@@ -23,6 +23,9 @@ public:
     leg_move_controller(void){};
 
     std::string id = "";
+    float coxa_length = 0.0f;
+    float femur_length = 0.0f;
+    float tibia_length = 0.0f;
 
     /**
      * @brief move leg to position
