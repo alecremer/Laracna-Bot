@@ -1,5 +1,5 @@
 idf_component_register(
-    SRCS "bt_interface.cpp" "main.cpp"
+    SRCS  "main.cpp"
     "data_manager.cpp"
     "data_manager.hpp"
     "movement/move_manager.cpp"
@@ -31,6 +31,9 @@ spiffs_create_partition_image(storage ../partition FLASH_IN_PROJECT)
 
 # Allow all compiler warnings to be displayed
 # and restrict all builds to fail in case of warnings
+add_compile_options(-fdiagnostics-color=always)
+
 component_compile_options("-Wall")
 component_compile_options("-Wextra")
 component_compile_options("-Werror")
+

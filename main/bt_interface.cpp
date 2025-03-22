@@ -1,15 +1,18 @@
+#include "bt_interface.hpp"
 #include <iostream>
 #include <sstream>
 #include <vector>
 #include <cstring> // Para usar strdup e free
 #include "esp_log.h"
-#include "bt_interface.hpp"
 
 // =-=-=-=-=-=-=-=-=- Funções da Classe BTInterface -=-=-=-=-=-=-=-=-=
+
 void BTInterface::Move(const std::string& arguments) {
     // Log de execução do comando move
     ESP_LOGE(TAG_RUN_CMD, "Running Move with the arguments: %s", arguments.c_str());
 }
+
+
 
 void BTInterface::Cmd(const std::string& arguments) { // Corrigido typo no parâmetro
     // Log de execução do comando cmd

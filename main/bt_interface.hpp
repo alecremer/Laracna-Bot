@@ -1,3 +1,6 @@
+#ifndef BT_INTERFACE_HPP
+#define BT_INTERFACE_HPP
+
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -7,8 +10,6 @@ extern "C" {
     #include "esp_log.h"
 }
 
-#ifndef BT_INTERFACE_HPP
-#define BT_INTERFACE_HPP
 
 #define TAG_RUN_CMD "RunCmd" // Define uma tag para os logs
 
@@ -24,6 +25,7 @@ private:
 public:
 
     BTInterface(void){}
+
     void Move(const std::string& arguments);
     void Cmd(const std::string& arguments);
     void Run_cmd(const std::string& command);
