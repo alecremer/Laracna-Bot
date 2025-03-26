@@ -21,6 +21,7 @@ private:
     int servo_move_cmd(void* context, int argc, char **argv);
 
 public:
+
     CLI(void){};
     void set_move_man(const MoveManager& _move_man){move_man = _move_man;};
     void set_data_manager(const data_manager& _data_man){data_man = _data_man;};
