@@ -1,4 +1,4 @@
-/* #include "laracna.hpp"
+#include "laracna.hpp"
 
 extern "C" void app_main(void) {
 
@@ -7,8 +7,9 @@ extern "C" void app_main(void) {
     laracna.build();
     laracna.initialize();
     
-}*/
+}
 
+ /*
 #include "bt_interface.hpp"
 
 int Text_Interface() {
@@ -21,6 +22,8 @@ int Text_Interface() {
     terminal_command = "cmd teste de comando";
     terminal_test.Run_cmd(terminal_command);
 
+    
+
     return 0;
 }
 
@@ -28,4 +31,4 @@ extern "C" void app_main(void) {
 
     Text_Interface();
     
-}
+}*/

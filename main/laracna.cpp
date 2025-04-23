@@ -92,8 +92,5 @@ void Laracna::build_legs(){
 
     // set move manager
     move_man.set_legs(legs);
-    
-  
-    
 
 }

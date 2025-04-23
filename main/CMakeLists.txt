@@ -16,6 +16,8 @@ idf_component_register(
     "movement/servo_driver2.hpp"
     "movement/servo_driver2.cpp"
     "movement/leg_config.hpp"
+    "movement/limit_switch_driver.hpp"
+    "movement/limit_switch_driver.cpp"
     "console/console.c"
     "cmd_interface.hpp"
     "cmd_interface.cpp"

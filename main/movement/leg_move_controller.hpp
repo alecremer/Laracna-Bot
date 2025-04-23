@@ -13,6 +13,7 @@
 #include "servo_driver.hpp"
 #include "servo_driver2.hpp"
 #include "movement/leg_config.hpp"
+#include "limit_switch_driver.hpp"
 
 /**
  * @brief Control leg motors
@@ -20,7 +21,7 @@
 class leg_move_controller {
 public:
     leg_move_controller(const LegConfig& leg_config_ext);
-    leg_move_controller(void){};
+    leg_move_controller(void);
 
     std::string id = "";
 
@@ -53,17 +54,21 @@ public:
      */
     void set_driver(const servo_driver2& _driver){_servo_driver = _driver;};
     mcpwm_timer_handle_t timer;
-
     
 
-private:
+private: 
+
     ik ik_servo;
     servo_driver2 _servo_driver;
     float coxa_length, femur_length, tibia_length;
     LegConfig _leg_config;
+    gpio_num_t pin_fim_de_curso = GPIO_NUM_23;
+    LimitSwitchDriver FimDeCurso;
     void move_servo_x(servo_driver&drive, const float&angle);
+    void stop_led(void);
+    bool fim_de_curso = false;
+    int stop_angle_coxa, stop_angle_femur, stop_angle_tibia;
 
 };
-
 
 #endif

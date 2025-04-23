@@ -5,13 +5,13 @@
 #include "leg_move_controller.hpp"
 #include "ik.hpp"
 #include "servo_driver.hpp"
-
+#include "limit_switch_driver.hpp"
 
 leg_move_controller::leg_move_controller(const LegConfig& leg_config_ext){
     _leg_config = leg_config_ext;
     id = _leg_config.id;
+    FimDeCurso.init(pin_fim_de_curso);
 }
-
 
 void leg_move_controller::move_to_position(std::array<float, 3>& position){
 
@@ -27,9 +27,24 @@ void leg_move_controller::move_servo_coxa(const float &angle){ _servo_driver.mov
 void leg_move_controller::move_servo_femur(const float &angle){ _servo_driver.move_servo(_leg_config.femur_ledc_channel, angle);}
 void leg_move_controller::move_servo_tibia(const float &angle){ _servo_driver.move_servo(_leg_config.tibia_ledc_channel, angle);}
 
+
 void leg_move_controller::move_servo_x(servo_driver &_drive, const float &_angle){
 
     int angle_int = (int) _angle; 
     _drive.Move(angle_int);
 
+}
+
+void leg_move_controller::stop_led(){
+    fim_de_curso = FimDeCurso.read();
+
+    if(fim_de_curso == 1){
+        stop_angle_coxa = _servo_driver.read_servo(_leg_config.coxa_ledc_channel);
+        stop_angle_femur = _servo_driver.read_servo(_leg_config.femur_ledc_channel);
+        stop_angle_tibia = _servo_driver.read_servo(_leg_config.tibia_ledc_channel);
+        
+        _servo_driver.move_servo(_leg_config.coxa_ledc_channel, stop_angle_coxa);
+        _servo_driver.move_servo(_leg_config.femur_ledc_channel, stop_angle_femur);
+        _servo_driver.move_servo(_leg_config.tibia_ledc_channel, stop_angle_tibia);
+    }
 }
